@@ -12,6 +12,7 @@ const request = function (loadtip, query) {
       background: 'rgba(0, 0, 0, 0.5)'
     })
   }
+
   // 返回axios请求
   return axios.request(query)
     .then(res => {
@@ -37,8 +38,8 @@ const request = function (loadtip, query) {
         loading.close()
       }
       // $ 是在 Vue 所有实例中都可用的 property 的一个简单约定
-      vue.prototype.$message.error(e.message)
-      return Promise.reject(e.message)
+      vue.prototype.$message.error(e.data)
+      return Promise.reject(e.data)
     })
 }
 
@@ -56,6 +57,10 @@ const post = function (url, params) {
     data: params,
     headers: { 'Content-Type': 'application/json', 'request-ajax': true }
   }
+  const token = localStorage.getItem('token')
+  if (token) {
+    query.headers.token = token
+  }
   return request(false, query)
 }
 
@@ -71,6 +76,10 @@ const postWithLoadTip = function (url, params) {
     data: params,
     headers: { 'Content-Type': 'application/json', 'request-ajax': true }
   }
+  const token = localStorage.getItem('token')
+  if (token) {
+    query.headers.token = token
+  }
   return request(true, query)
 }
 
@@ -83,6 +92,10 @@ const postWithOutLoadTip = function (url, params) {
     timeout: 30000,
     data: params,
     headers: { 'Content-Type': 'application/json', 'request-ajax': true }
+  }
+  const token = localStorage.getItem('token')
+  if (token) {
+    query.headers.token = token
   }
   return request(false, query)
 }
@@ -98,10 +111,14 @@ const get = function (url, params) {
     params: params,
     headers: { 'request-ajax': true }
   }
+  const token = localStorage.getItem('token')
+  if (token) {
+    query.headers.token = token
+  }
   return request(false, query)
 }
 
-// 表单请求
+
 const form = function (url, params) {
   const query = {
     baseURL: process.env.VUE_APP_URL,
@@ -110,7 +127,11 @@ const form = function (url, params) {
     withCredentials: true,
     timeout: 30000,
     data: params,
-    headers: { 'Content-Type': 'multipart/form-data', 'request-ajax': true }
+    headers: { 'Content-Type': 'application/form-data', 'request-ajax': true }
+  }
+  const token = localStorage.getItem('token')
+  if (token) {
+    query.headers.token = token
   }
   return request(false, query)
 }

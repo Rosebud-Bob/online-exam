@@ -4,6 +4,10 @@ spring:
     username: remote
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
   jpa:
     database: mysql
     hibernate:
@@ -12,3 +16,5 @@ spring:
 jwt:
   ttl: 120
   secret: examSecret
+server:
+  port: 8888

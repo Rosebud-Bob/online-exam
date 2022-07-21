@@ -1,47 +1,38 @@
 <template>
   <div>
-    <el-row  class="do-exam-title">
-      <el-col :span="24">
-        <span :key="item.itemOrder"  v-for="item in answer.answerItems">
-             <el-tag :type="questionCompleted(item.completed)" class="do-exam-title-tag" @click="goAnchor('#question-'+item.itemOrder)">{{item.itemOrder}}</el-tag>
-        </span>
-        <span class="do-exam-time">
-          <label>剩余时间：</label>
-          <label>{{formatSeconds(remainTime)}}</label>
-        </span>
-      </el-col>
-    </el-row>
-    <el-row  class="do-exam-title-hidden">
-      <el-col :span="24">
-        <span :key="item.itemOrder"  v-for="item in answer.answerItems">
-             <el-tag  class="do-exam-title-tag" >{{item.itemOrder}}</el-tag>
-        </span>
-        <span class="do-exam-time">
-          <label>剩余时间：</label>
-        </span>
-      </el-col>
-    </el-row>
+
+<!--    试卷名字-->
     <el-container  class="app-item-contain">
       <el-header class="align-center">
         <h1>{{form.name}}</h1>
-        <div>
-          <span class="question-title-padding">试卷总分：{{form.score}}</span>
-          <span class="question-title-padding">考试时间：{{form.suggestTime}}分钟</span>
-        </div>
       </el-header>
+
+<!--      考试部分-->
       <el-main>
-        <el-form :model="form" ref="form" v-loading="formLoading" label-width="100px">
+        <el-form :model="form" ref="form" v-loading="formLoading" label-width="200px" >
           <el-row :key="index"  v-for="(titleItem,index) in form.titleItems">
             <h3>{{titleItem.name}}</h3>
             <el-card class="exampaper-item-box" v-if="titleItem.questionItems.length!==0">
-              <el-form-item :key="questionItem.itemOrder" :label="questionItem.itemOrder+'.'"
+<!--                题目-->
+              <el-form-item :key="questionItem.itemOrder" :label="questionItem.itemOrder+'.'+questionItem.title"
                             v-for="questionItem in titleItem.questionItems"
-                            class="exam-question-item" label-width="50px" :id="'question-'+ questionItem.itemOrder">
-                <QuestionEdit :qType="questionItem.questionType" :question="questionItem"
-                              :answer="answer.answerItems[questionItem.itemOrder-1]"/>
+                            class="exam-question-item" label-width="auto" label-position="left"  :id="'question-'+ questionItem.itemOrder">
+                <el-form-item :key="questionItem.itemOrder"
+                              class="exam-question-item" :id="'question-'+ questionItem.itemOrder">
+                </el-form-item>
+<!--                选项-->
+                <el-form-item :key="Item.itemOrder" :label="Item.prefix+'、'+Item.content"
+                              v-for="Item in questionItem.items"
+                              class="exam-question-item" label-width="auto" label-position="left" :id="'question-'+ questionItem.itemOrder">
+                </el-form-item>
+                <!--                回答框-->
+                <el-form-item label="答案：" label-position="left" label-width="auto" >
+                  <el-input class="question-item-content-input"/>
+                </el-form-item>
               </el-form-item>
             </el-card>
           </el-row>
+<!--          提交部分-->
            <el-row class="do-align-center">
              <el-button type="primary" @click="submitForm">提交</el-button>
              <el-button>取消</el-button>
@@ -58,6 +49,8 @@ import { formatSeconds } from '@/utils'
 import QuestionEdit from '../components/QuestionEdit'
 import examPaperApi from '@/api/examPaper'
 import examPaperAnswerApi from '@/api/examPaperAnswer'
+/* eslint-disable */
+
 
 export default {
   components: { QuestionEdit },
@@ -67,84 +60,48 @@ export default {
       formLoading: false,
       answer: {
         questionId: null,
-        doTime: 0,
         answerItems: []
-      },
-      timer: null,
-      remainTime: 0
+      }
     }
   },
+
   created () {
-    let id = this.$route.query.id
+    // 不知道后端的接口于是写了组本地数据，到时根据后端的响应来改
+    const response={"id":126,"level":1,"subjectId":4,"paperType":1,"name":"随机生成试卷", "titleItems":[{"name":"很随便的卷子",
+        "questionItems":[{"id":86,"questionType":1,"subjectId":4,"title":"我是第一题，我的问题是blablabla", "gradeLevel":1,
+          "items":[{"prefix":"A","content":"这是A","score":null},
+            {"prefix":"B","content":"这是B","score":null},{"prefix":"C","content":"这是C","score":null},
+            {"prefix":"D","content":"这是D","score":null}],"analyze":null,"correctArray":null,"correct":null,
+          "score":"2","difficult":null,"itemOrder":1,"knowledgeIdList":[]}]}],"classes":null}
+    // let id = this.$route.query.id
     let _this = this
-    if (id && parseInt(id) !== 0) {
-      _this.formLoading = true
-      examPaperApi.select(id).then(re => {
-        _this.form = re.response
-        _this.remainTime = re.response.suggestTime * 60
-        _this.initAnswer()
-        _this.timeReduce()
-        _this.formLoading = false
-      })
-    }
+    _this.form = response
+
+    // 接受后端的数据，并把内容存入form中，API根据后端写的改
+    // if (id && parseInt(id) !== 0) {
+    //   _this.formLoading = true
+    //   examPaperApi.select(id).then(re => {
+    //     _this.form=re
+    //     _this.formLoading = false
+    //   })
+    // }
   },
   mounted () {
-
   },
   beforeDestroy () {
-    window.clearInterval(this.timer)
   },
   methods: {
-    formatSeconds (theTime) {
-      return formatSeconds(theTime)
-    },
-    timeReduce () {
-      let _this = this
-      this.timer = setInterval(function () {
-        if (_this.remainTime <= 0) {
-          _this.submitForm()
-        } else {
-          ++_this.answer.doTime
-          --_this.remainTime
-        }
-      }, 1000)
-    },
-    questionCompleted (completed) {
-      return this.enumFormat(this.doCompletedTag, completed)
-    },
-    goAnchor (selector) {
-      this.$el.querySelector(selector).scrollIntoView({ behavior: 'instant', block: 'center', inline: 'nearest' })
-    },
-    initAnswer () {
-      this.answer.id = this.form.id
-      let titleItemArray = this.form.titleItems
-      for (let tIndex in titleItemArray) {
-        let questionArray = titleItemArray[tIndex].questionItems
-        for (let qIndex in questionArray) {
-          let question = questionArray[qIndex]
-          this.answer.answerItems.push({ questionId: question.id, content: null, contentArray: [], completed: false, itemOrder: question.itemOrder })
-        }
-      }
-    },
+    // 一个假的submit，不过它确实可以跳转页面
     submitForm () {
       let _this = this
-      window.clearInterval(_this.timer)
       _this.formLoading = true
-      examPaperAnswerApi.answerSubmit(this.answer).then(re => {
-        if (re.code === 1) {
-          _this.$alert('试卷得分：' + re.response + '分', '考试结果', {
-            confirmButtonText: '返回考试记录',
-            callback: action => {
-              _this.$router.push('/record/index')
-            }
-          })
-        } else {
-          _this.$message.error(re.message)
+      _this.$alert('成功提交！', {
+        confirmButtonText: '返回首页',
+        callback: action => {
+          _this.$router.push('/user/index')
         }
-        _this.formLoading = false
-      }).catch(e => {
-        _this.formLoading = false
       })
+      _this.formLoading = false
     }
   },
   computed: {

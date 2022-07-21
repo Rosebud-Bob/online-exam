@@ -40,20 +40,8 @@ export default {
     }
   },
   created () {
-    let _this = this
     this.loading = true
-    indexApi.index().then(re => {
-      _this.fixedPaper = re.response.fixedPaper
-      _this.timeLimitPaper = re.response.timeLimitPaper
-      _this.pushPaper = re.response.pushPaper
-      _this.loading = false
-    })
-
     this.taskLoading = true
-    indexApi.task().then(re => {
-      _this.taskList = re.response
-      _this.taskLoading = false
-    })
   },
   methods: {
     statusTagFormatter (status) {

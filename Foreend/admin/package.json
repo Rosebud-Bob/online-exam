@@ -1,5 +1,5 @@
 {
-    "name": "xzs-admin",
+    "name": "admin",
     "version": "3.4.0",
     "author": "JVAV小组",
     "description": "管理系统",
@@ -22,8 +22,11 @@
         "dropzone": "^5.9.2",
         "element-ui": "^2.15.5",
         "js-cookie": "2.2.0",
+        "js-md5": "^0.7.3",
+        "md5": "^2.3.0",
         "normalize.css": "8.0.1",
         "nprogress": "0.2.0",
+        "qs": "^6.11.0",
         "screenfull": "^5.1.0",
         "vue": "^2.6.14",
         "vue-count-to": "^1.0.13",

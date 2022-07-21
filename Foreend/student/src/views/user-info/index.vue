@@ -7,54 +7,63 @@
             <span>个人信息</span>
           </div>
           <el-row style="text-align: center">
-            <el-upload action="/api/student/upload/image"  accept=".jpg,.png" :show-file-list="false"  :on-success="uploadSuccess">
-              <el-avatar class="el-dropdown-avatar" :size="100" :src="form.imagePath === null ? require('@/assets/avatar.png') : form.imagePath"></el-avatar>
-            </el-upload>
+              <el-avatar class="el-dropdown-avatar" :size="100" :src="require('@/assets/avatar.png') "></el-avatar>
           </el-row>
-          <el-row class="user-info-userName">
-            <label>{{form.userName}}</label>
+          <el-row class="user-info-username">
+            <label>{{form.username}}</label>
           </el-row>
           <el-divider/>
           <el-row class="user-info-fullInfo">
-            <label>姓名：{{form.realName}}</label><br/>
-            <label>年级：{{levelFormatter(form.grade)}}</label><br/>
+            <label>姓名：{{form.name}}</label><br/>
+            <label>年级：{{form.grade}}级</label><br/>
           </el-row>
         </el-card>
       </el-col>
+
       <el-col :span="17">
         <el-card shadow="hover">
           <el-tabs active-name="update" type="card">
             <el-tab-pane label="个人资料修改" name="update">
               <el-form :model="form" ref="form" label-width="100px" v-loading="formLoading" :rules="rules">
-                <el-form-item label="姓名：" prop="realName" required>
-                  <el-input v-model="form.realName"></el-input>
-                </el-form-item>
-                <el-form-item label="年龄：">
-                  <el-input v-model="form.age"></el-input>
+                <el-form-item label="姓名：" prop="name" required>
+                  <el-input v-model="form.name"></el-input>
                 </el-form-item>
                 <el-form-item label="性别：">
                   <el-select v-model="form.sex" placeholder="性别" clearable>
-                    <el-option v-for="item in sexEnum" :key="item.key" :value="item.key"
+                    <el-option v-for="item in sexEnum" :key="item.value" :value="item.value"
                                :label="item.value"></el-option>
                   </el-select>
                 </el-form-item>
                 <el-form-item label="出生日期：">
-                  <el-date-picker v-model="form.birthDay" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
+                  <el-date-picker v-model="form.birthday" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
                 </el-form-item>
                 <el-form-item label="手机：">
-                  <el-input v-model="form.phone"></el-input>
+                  <el-input v-model="form.mobileNumber"></el-input>
                 </el-form-item>
-                <el-form-item label="年级：" prop="grade" required>
-                  <el-select v-model="form.grade" placeholder="年级">
-                    <el-option v-for="item in levelEnum" :key="item.key" :value="item.key"
-                               :label="item.value"></el-option>
-                  </el-select>
+                <el-form-item label="年级：" >
+                    <el-input v-model="form.grade"></el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-button type="primary" @click="submitForm">更新</el-button>
                 </el-form-item>
               </el-form>
             </el-tab-pane>
+
+            <el-tab-pane label="密码修改" name="password" >
+              <el-form :model="passwordEdit" ref="passwordEdit" label-width="100px" v-loading="formLoading" :rules="rules">
+                <el-form-item label="旧密码：" required>
+                  <el-input v-model="oldPasswordRaw"></el-input>
+                </el-form-item>
+                <el-form-item label="新密码："required >
+                  <el-input v-model="newPasswordRaw"></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="submitPassword">更新</el-button>
+                </el-form-item>
+              </el-form>
+            </el-tab-pane>
+
+
           </el-tabs>
         </el-card>
       </el-col>
@@ -65,23 +74,30 @@
 <script>
 import userApi from '@/api/user'
 import { mapGetters, mapState } from 'vuex'
+import md5 from "md5";
 
 export default {
   data () {
     return {
       event: [],
-      form: {
-        userName: '',
-        realName: '',
-        sex: '',
-        birthDay: null,
-        phone: null,
-        grade: null,
-        imagePath: null
+      passwordEdit:{
+        oldPassword: "",
+        newPassword: "",
       },
+      form: {
+        username: '',
+        name: '',
+        sex: '',
+        birthday: null,
+        mobileNumber: null,
+        grade: null,
+        userType: 'U'
+      },
+      newPasswordRaw:'',
+      oldPasswordRaw:'',
       formLoading: false,
       rules: {
-        realName: [
+        name: [
           { required: true, message: '请输入真实姓名', trigger: 'blur' }
         ],
         grade: [
@@ -92,20 +108,39 @@ export default {
   },
   created () {
     let _this = this
-    userApi.getUserEvent().then(re => {
-      _this.event = re.response
-    })
     userApi.getCurrentUser().then(re => {
-      _this.form = re.response
+      _this.form = re.data
     })
   },
   methods: {
     uploadSuccess (re, file) {
-      if (re.code === 1) {
+      if (re.code === 200) {
         window.location.reload()
       } else {
         this.$message.error(re.message)
       }
+    },
+    submitPassword(){
+      let _this = this
+      this.passwordEdit.newPassword=md5(this.newPasswordRaw)
+      this.passwordEdit.oldPassword=md5(this.oldPasswordRaw)
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.formLoading = true
+          userApi.changePassword(this.passwordEdit).then(data => {
+            if (data.code === 200) {
+              _this.$message.success(data.message)
+            } else {
+              _this.$message.error(data.message)
+            }
+            _this.formLoading = false
+          }).catch(e => {
+            _this.formLoading = false
+          })
+        } else {
+          return false
+        }
+      })
     },
     submitForm () {
       let _this = this
@@ -113,7 +148,7 @@ export default {
         if (valid) {
           this.formLoading = true
           userApi.update(this.form).then(data => {
-            if (data.code === 1) {
+            if (data.code === 200) {
               _this.$message.success(data.message)
             } else {
               _this.$message.error(data.message)
@@ -144,5 +179,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

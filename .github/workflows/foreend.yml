@@ -1,0 +1,82 @@
+name: Foreend Deploy
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'Foreend/**'
+  workflow_dispatch:
+
+jobs:
+  admin:
+    name: Build and Run admin
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.15.0'
+      - run: cd Foreend/admin && yarn install
+        name: installing dependencies
+      - run: cd Foreend/admin && yarn build:prod
+        name: building
+      - name: tar dist directory
+        run: |
+          cd Foreend/admin
+          tar -zcvf admin.tar.gz dist
+      - name: upload tar file
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: Foreend/admin/admin.tar.gz
+          remote: spring-boot/admin/admin.tar.gz
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+      - name: unzip and run
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          scripts: |
+            cd spring-boot/admin
+            rm -rf dist
+            tar -zxvf admin.tar.gz
+            rm -rf /var/www/html/vue/admin
+            mv dist /var/www/html/vue/admin
+  student:
+    name: Build and Run student
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.15.0'
+      - run: cd Foreend/student && yarn install
+        name: installing dependencies
+      - run: cd Foreend/student && yarn build:prod
+        name: building
+      - name: tar dist directory
+        run: |
+          cd Foreend/student
+          tar -zcvf student.tar.gz dist
+      - name: upload tar file
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: Foreend/student/student.tar.gz
+          remote: spring-boot/student/student.tar.gz
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+      - name: unzip and run
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          scripts: |
+            cd spring-boot/student
+            rm -rf dist
+            tar -zxvf student.tar.gz
+            rm -rf /var/www/html/vue/student
+            mv dist /var/www/html/vue/student

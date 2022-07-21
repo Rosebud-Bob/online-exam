@@ -6,10 +6,14 @@ import edu.nine14.exam.entity.User;
 import edu.nine14.exam.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.FailedLoginException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -39,8 +43,12 @@ public class UserService {
     }
 
     public void register(String username, String password, String userType) {
+        Optional<User> user_check = userRepository.findById(username);
+        if (user_check.isPresent())
+            throw new IllegalArgumentException("User already exists");
         User user = new User();
         user.setUsername(username);
+        user.setName(username);
         user.setPassword(password);
         user.setUserType(userType);
         userRepository.save(user);
@@ -65,10 +73,25 @@ public class UserService {
         userRepository.save(user.get());
     }
 
-    public void deleteUser(String username) {
+    public void removeUser(String username) {
         Optional<User> user = userRepository.findById(username);
         if (user.isEmpty())
             throw new IllegalArgumentException("User not found");
         userRepository.delete(user.get());
+    }
+
+    public List<User> getUserList(int pageNum, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.by("userType", "username"));
+        return userRepository.findAll(pageable).getContent();
+    }
+
+    public void updatePassword(String username, String oldPassword, String newPassword) {
+        Optional<User> user = userRepository.findById(username);
+        if (user.isEmpty())
+            throw new IllegalArgumentException("User not found");
+        if (!user.get().getPassword().equals(oldPassword))
+            throw new IllegalArgumentException("Password wrong");
+        user.get().setPassword(newPassword);
+        userRepository.save(user.get());
     }
 }

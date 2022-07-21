@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="753A2A4B-3AAD-9518-B32B-F4FE0D63CEC3" name="direction">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:23:35 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="4E494BDB-87EE-4EA8-4BAF-EE191A4E25F0">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:23:41 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0F982420-53D7-06C1-66D8-87437433CDC3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="name" id="BD593A41-D5F4-ABE4-B8A7-D6860600239E">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:23:51 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<domain>33707D8D-B978-DE7A-D66F-CC8B11046A2E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id1" id="D0F1DC3A-64D0-45B7-7A51-8DA9EA37E6A4">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:27:31 UTC</createdTime>
+<generatorID>150E37B0-CC0C-6FA5-B167-3ED4590E4409</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
+</engineerTo>
+<referedAttribute>0D7BA95F-6DF8-6DB7-2AB5-652F6491D8A7</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0F982420-53D7-06C1-66D8-87437433CDC3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="D4FC5073-B4DB-D4A6-AD8D-3F61C309F51B" name="direction PK">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:23:50 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>4E494BDB-87EE-4EA8-4BAF-EE191A4E25F0</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

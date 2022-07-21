@@ -9,8 +9,8 @@
         <img :src="userInfo.imagePath === null ? require('@/assets/avatar.png') : userInfo.imagePath " height="100px" width="100px" style="border-radius: 50px">
       </div>
       <div class="box-center">
-        <div class="user-name text-center">{{ userInfo.userName }}</div>
-        <div class="user-role text-center text-muted">{{ enumFormat(roleEnum,userInfo.role) }}</div>
+        <div class="user-name text-center">{{ userInfo.username }}</div>
+        <div class="user-role text-center text-muted">{{ enumFormat(roleEnum,userInfo.user_type) }}</div>
       </div>
     </div>
 
@@ -37,9 +37,9 @@ export default {
       type: Object,
       default: () => {
         return {
-          realName: '',
-          userName: '',
-          role: '',
+          name: '',
+          username: '',
+          user_type: '',
           imagePath: null
         }
       }

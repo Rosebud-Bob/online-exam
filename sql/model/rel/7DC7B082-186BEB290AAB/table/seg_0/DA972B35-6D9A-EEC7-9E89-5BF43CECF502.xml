@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="DA972B35-6D9A-EEC7-9E89-5BF43CECF502" name="direction">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>753A2A4B-3AAD-9518-B32B-F4FE0D63CEC3</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="166D3EA9-3FEC-3B73-E64F-9EF258F3D7EE">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>4E494BDB-87EE-4EA8-4BAF-EE191A4E25F0</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0F982420-53D7-06C1-66D8-87437433CDC3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="4CA52589-2245-CFE6-3BC1-F404FCBCAD71">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>BD593A41-D5F4-ABE4-B8A7-D6860600239E</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<domain>33707D8D-B978-DE7A-D66F-CC8B11046A2E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="profession_id" id="068F5787-125C-2067-3560-9B2E32CF5830">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>D0F1DC3A-64D0-45B7-7A51-8DA9EA37E6A4</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0F982420-53D7-06C1-66D8-87437433CDC3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="476AD29E-76B9-00EF-681C-BB019302FF71" referredColumn="202A298C-F964-4230-EE5B-A8953247E6E9"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="943ECFBE-E6D9-E207-FE7E-C1D44627BC87" name="direction_PK">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>D4FC5073-B4DB-D4A6-AD8D-3F61C309F51B</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="166D3EA9-3FEC-3B73-E64F-9EF258F3D7EE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="42DF950F-8AC5-146D-DE44-9FD56C3856FF" name="direction_profession_FK">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>150E37B0-CC0C-6FA5-B167-3ED4590E4409</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="068F5787-125C-2067-3560-9B2E32CF5830"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -2,47 +2,29 @@
   <div class="app-container">
     <el-form :model="queryParam" ref="queryForm" :inline="true">
       <el-form-item label="用户名：">
-        <el-input v-model="queryParam.userName"></el-input>
+        <el-input v-model="username"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm">查询</el-button>
-        <router-link :to="{path:'/user/student/edit'}" class="link-left">
-          <el-button type="primary">添加</el-button>
-        </router-link>
+        <el-button type="primary" @click="searchByName">查询</el-button>
       </el-form-item>
     </el-form>
 
     <el-table v-loading="listLoading" :data="tableData" border fit highlight-current-row style="width: 100%">
-      <el-table-column prop="id" label="Id" />
-      <el-table-column prop="userName" label="用户名"/>
-      <el-table-column prop="realName" label="真实姓名" />
-      <el-table-column prop="userLevel" label="学级"  :formatter="levelFormatter"/>
-      <el-table-column prop="sex" label="性别" width="60px;" :formatter="sexFormatter"/>
-      <el-table-column prop="phone" label="手机号"/>
-      <el-table-column prop="createTime" label="创建时间" width="160px"/>
-      <el-table-column label="状态" prop="status" width="70px">
-        <template slot-scope="{row}">
-          <el-tag :type="statusTagFormatter(row.status)">
-            {{ statusFormatter(row.status) }}
-          </el-tag>
-        </template>
-      </el-table-column>
+      <el-table-column prop="username" label="用户名"/>
+      <el-table-column prop="name" label="真实姓名" />
+      <el-table-column prop="grade" label="年级"/>
+      <el-table-column prop="sex" label="性别" width="60px;"/>
+      <el-table-column prop="mobileNumber" label="手机号"/>
+      <el-table-column prop="birthday" label="出生日期" />
       <el-table-column width="270px" label="操作" align="center">
+<!--        table绑定了:data,作用域插槽中定义一个对象 (这里对象被定义为 row)-->
+<!--        query传参-->
         <template slot-scope="{row}">
-          <el-button size="mini"  @click="changeStatus(row)" class="link-left">
-            {{ statusBtnFormatter(row.status) }}
-          </el-button>
-          <router-link :to="{path:'/user/student/edit', query:{id:row.id}}" class="link-left">
-            <el-button size="mini" >编辑</el-button>
-          </router-link>
-          <router-link :to="{path:'/log/user/list', query:{userId:row.id}}" class="link-left">
-            <el-button size="mini" >日志</el-button>
-          </router-link>
           <el-button  size="mini" type="danger" @click="deleteUser(row)" class="link-left">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <pagination v-show="total>0" :total="total" :page.sync="queryParam.pageIndex" :limit.sync="queryParam.pageSize"
+    <pagination v-show="total>0" :total="total" :page.sync="queryParam.page" :limit.sync="queryParam.size"
                 @pagination="search"/>
   </div>
 </template>
@@ -51,17 +33,18 @@
 import { mapGetters, mapState } from 'vuex'
 import Pagination from '@/components/Pagination'
 import userApi from '@/api/user'
+import Qs from "qs";
 
 export default {
   components: { Pagination },
   data () {
     return {
       queryParam: {
-        userName: '',
-        role: 1,
-        pageIndex: 1,
-        pageSize: 10
+        page: 1,
+        size: 10
       },
+      username: '',
+      user_type: 'A',
       listLoading: true,
       tableData: [],
       total: 0
@@ -71,44 +54,61 @@ export default {
     this.search()
   },
   methods: {
+    searchByName(){
+      this.listLoading = true
+      userApi.getUserByName(this.username).then(data => {
+        if(data.data){
+          let temp=[]
+          temp.push(data.data)
+          this.tableData=temp
+          this.total = 1
+          this.queryParam.page = 1
+          this.listLoading = false
+        }
+        else{
+          alert('用户不存在！')
+          this.search()
+        }
+      })
+    },
     search () {
       this.listLoading = true
-      userApi.getUserPageList(this.queryParam).then(data => {
-        const re = data.response
-        this.tableData = re.list
-        this.total = re.total
-        this.queryParam.pageIndex = re.pageNum
+      userApi.getUserPageList(Qs.stringify(this.queryParam)).then(data => {
+        this.tableData = data.data
+        this.total = data.data.length
+        this.queryParam.page = 1
         this.listLoading = false
       })
     },
     changeStatus (row) {
       let _this = this
       userApi.changeStatus(row.id).then(re => {
-        if (re.code === 1) {
+        if (re.code === 200) {
           row.status = re.response
-          _this.$message.success(re.message)
+          _this.$message.success(re.data)
         } else {
-          _this.$message.error(re.message)
+          _this.$message.error(re.data)
         }
       })
     },
+    // 删除用户
     deleteUser (row) {
       let _this = this
-      userApi.deleteUser(row.id).then(re => {
-        if (re.code === 1) {
+      userApi.deleteUser(row.username).then(re => {
+        if (re.code === 200) {
           _this.search()
-          _this.$message.success(re.message)
+          _this.$message.success(re.data)
         } else {
-          _this.$message.error(re.message)
+          _this.$message.error(re.data)
         }
       })
     },
     submitForm () {
-      this.queryParam.pageIndex = 1
+      this.queryParam.page = 1
       this.search()
     },
-    levelFormatter  (row, column, cellValue, index) {
-      return this.enumFormat(this.levelEnum, cellValue)
+    gradeFormatter(row, column, cellValue, index) {
+      return this.enumFormat(this.gradeEnum, cellValue)
     },
     sexFormatter  (row, column, cellValue, index) {
       return this.enumFormat(this.sexEnum, cellValue)
@@ -128,11 +128,11 @@ export default {
       'enumFormat'
     ]),
     ...mapState('enumItem', {
+      gradeEnum:state => state.user.gradeEnum,
       sexEnum: state => state.user.sexEnum,
       statusEnum: state => state.user.statusEnum,
       statusTag: state => state.user.statusTag,
       statusBtn: state => state.user.statusBtn,
-      levelEnum: state => state.user.levelEnum
     })
   }
 }

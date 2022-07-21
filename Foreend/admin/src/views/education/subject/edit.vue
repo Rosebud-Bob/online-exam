@@ -2,11 +2,11 @@
   <div class="app-container">
 
     <el-form :model="form" ref="form" label-width="100px" v-loading="formLoading">
-      <el-form-item label="学科：" required>
-        <el-input v-model="form.name"></el-input>
+      <el-form-item label="专业方向：" required>
+        <el-input v-model="form.directionName"></el-input>
       </el-form-item>
-      <el-form-item label="年级：" required>
-        <el-select v-model="form.level" placeholder="年级">
+      <el-form-item label="专业分类：" required>
+        <el-select v-model="form.profession.professionID" placeholder="专业分类">
           <el-option v-for="item in levelEnum" :key="item.key" :value="item.key" :label="item.value"></el-option>
         </el-select>
       </el-form-item>
@@ -22,14 +22,25 @@
 import { mapGetters, mapState, mapActions } from 'vuex'
 import subjectApi from '@/api/subject'
 
+const form={
+  directionID:1,
+  directionName:'',
+  profession:{
+    professionID: 1, // 分类id
+    professionName: '' // 分类名称
+  }
+}
+
 export default {
   data () {
     return {
       form: {
-        id: null,
-        name: '',
-        level: 1,
-        levelName: ''
+        directionID: null, // 专业方向id
+        directionName: '', // 专业方向名称
+        profession:{
+          professionID: 1, // 分类id
+          professionName: '' // 分类名称
+        }
       },
       formLoading: false
     }
@@ -37,10 +48,12 @@ export default {
   created () {
     let id = this.$route.query.id
     let _this = this
-    if (id && parseInt(id) !== 0) {
+    if (id) {
       _this.formLoading = true
       subjectApi.select(id).then(re => {
-        _this.form = re.response
+        this.form.directionName=re.data.directionName
+        this.form.directionID=re.data.directionID
+        this.form.profession.professionID=re.data.professionId
         _this.formLoading = false
       })
     }
@@ -49,15 +62,15 @@ export default {
     submitForm () {
       let _this = this
       this.formLoading = true
-      this.form.levelName = this.enumFormat(this.levelEnum, this.form.level)
+      this.form.profession.professionName = this.enumFormat(this.levelEnum, this.form.profession.professionID)
       subjectApi.edit(this.form).then(data => {
-        if (data.code === 1) {
-          _this.$message.success(data.message)
+        if (data.code === 200) {
+          _this.$message.success(data.data)
           _this.delCurrentView(_this).then(() => {
             _this.$router.push('/education/subject/list')
           })
         } else {
-          _this.$message.error(data.message)
+          _this.$message.error(data.data)
           _this.formLoading = false
         }
       }).catch(e => {
@@ -65,24 +78,25 @@ export default {
       })
     },
     resetForm () {
-      let lastId = this.form.id
+      let lastId = this.form.directionID
       this.$refs['form'].resetFields()
       this.form = {
-        id: null,
-        name: '',
-        level: 1,
-        levelName: ''
+        directionID: null,
+        directionName: '',
+        profession:{
+          professionID: 1, // 分类id
+          professionName: '' // 分类名称
+        }
       }
-      this.form.id = lastId
+      this.form.directionID = lastId
     },
-    ...mapActions('tagsView', { delCurrentView: 'delCurrentView' })
   },
   computed: {
     ...mapGetters('enumItem', [
       'enumFormat'
     ]),
     ...mapState('enumItem', {
-      levelEnum: state => state.user.levelEnum
+      levelEnum: state => state.exam.question.levelEnum
     })
   }
 }

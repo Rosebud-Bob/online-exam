@@ -1,0 +1,136 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B7EAF78F-9817-D059-3568-CEBD74251859" name="question_bank">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>8CB3190F-42A3-A731-CA04-095E40FF42A4</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="51C06B3B-9107-F1E8-16AF-5E703FE4C299">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>5B47E88B-E315-A05E-14A3-60033816882B</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0F982420-53D7-06C1-66D8-87437433CDC3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="profession" id="D6DDBFA3-225B-5749-54CF-848375A548DB">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>1DEBF1FC-A203-842E-58EA-9BC403AD7763</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>16 CHAR</dataTypeSize>
+<ownDataTypeParameters>16 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="direction" id="567BD0A4-FD91-3004-7E3A-A23B9D37B623">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>2CDAC355-8736-1758-EABE-078C49A5660B</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>16 CHAR</dataTypeSize>
+<ownDataTypeParameters>16 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="type" id="6BEAA1AF-D134-DE72-86D1-40F1605E8F9C">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>AA36E932-614F-8D02-9E06-8A22BD1A191E</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1 CHAR</dataTypeSize>
+<ownDataTypeParameters>1 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="body" id="89EB30BF-0339-A2B6-9722-CDF57DEB8C75">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>551898B2-5AF1-E597-51D4-19EAC2A72116</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
+<domain>CA248231-BF1D-0783-563B-A9283A738968</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="selection" id="DAA52E9F-79A2-2765-6C5A-F5B9DBCE45E3">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>83CC066F-3DCB-555F-5323-5529E388AC4D</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 CHAR</dataTypeSize>
+<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="answer" id="7FD8CC2F-1C7E-45F0-E3DF-953D2935F195">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>3E7D6CCE-F859-2788-C5E0-546B42982FB3</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 CHAR</dataTypeSize>
+<ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="direction_id" id="375448F3-4CF3-133A-8688-15DB99F2C4CD">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>806978F7-93B4-45F8-640A-7429AF6BF5AC</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0F982420-53D7-06C1-66D8-87437433CDC3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="28AB716A-2E80-899B-9A07-6D3654EF4373" referredColumn="166D3EA9-3FEC-3B73-E64F-9EF258F3D7EE"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A98FBD60-6F45-AE68-BC7D-FE056ED9777B" name="question_bank_PK">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>7F497FA5-7393-CE28-D0AA-DF7F1CC65D4D</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="51C06B3B-9107-F1E8-16AF-5E703FE4C299"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F278AAAA-CE09-A8E9-9BE3-9F2357F80DA6" name="question_bank_direction_FK">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:34:05 UTC</createdTime>
+<generatorID>40D80783-519F-1E6C-36B2-F41DE2BAF85A</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="375448F3-4CF3-133A-8688-15DB99F2C4CD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

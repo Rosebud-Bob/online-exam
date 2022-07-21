@@ -38,8 +38,8 @@ export default {
     return {
       queryParam: {
         paperType: 1,
-        subjectId: 0,
-        pageIndex: 1,
+        direction: 0,
+        pageIndex: 0,
         pageSize: 10
       },
       tabId: '',
@@ -57,9 +57,9 @@ export default {
       let _this = this
       subjectApi.list().then(re => {
         _this.subjectList = re.response
-        let subjectId = _this.subjectList[0].id
-        _this.queryParam.subjectId = subjectId
-        _this.tabId = subjectId.toString()
+        let direction = _this.subjectList[0].id
+        _this.queryParam.direction = direction
+        _this.tabId = direction.toString()
         _this.search()
       })
     },
@@ -77,7 +77,7 @@ export default {
       this.search()
     },
     subjectChange (tab, event) {
-      this.queryParam.subjectId = Number(this.tabId)
+      this.queryParam.direction = Number(this.tabId)
       this.search()
     }
   },

@@ -7,16 +7,10 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <span>{{userName}}</span>
           <i class="el-icon-caret-bottom" />
+          <el-avatar> A </el-avatar>
         </div>
         <el-dropdown-menu slot="dropdown">
-          <router-link to="/profile/index">
-            <el-dropdown-item>个人信息</el-dropdown-item>
-          </router-link>
-          <router-link to="/">
-            <el-dropdown-item>主页</el-dropdown-item>
-          </router-link>
           <el-dropdown-item  @click.native="logout"  divided>退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -39,7 +33,7 @@ export default {
     ...mapGetters([
       'sidebar',
       'device',
-      'userName'
+      'username'
     ])
   },
   methods: {
@@ -48,12 +42,8 @@ export default {
     },
     logout () {
       let _this = this
-      loginApi.logout().then(function (result) {
-        if (result && result.code === 1) {
-          _this.clearLogin()
-          _this.$router.push({ path: '/login' })
-        }
-      })
+      _this.clearLogin()
+      _this.$router.push({ path: '/login' })
     },
     ...mapMutations('user', ['clearLogin'])
   }

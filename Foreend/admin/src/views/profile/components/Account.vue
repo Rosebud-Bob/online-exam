@@ -1,10 +1,10 @@
 <template>
   <el-form>
     <el-form-item label="真实姓名">
-      <el-input v-model.trim="userInfo.realName" />
+      <el-input v-model.trim="userInfo.name" />
     </el-form-item>
     <el-form-item label="手机号">
-      <el-input v-model.trim="userInfo.phone" />
+      <el-input v-model.trim="userInfo.mobile_number" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submit">更新</el-button>
@@ -20,8 +20,8 @@ export default {
       type: Object,
       default: () => {
         return {
-          realName: '',
-          phone: ''
+          name: '',
+          mobile_number: ''
         }
       }
     }
@@ -30,10 +30,10 @@ export default {
     submit () {
       let _this = this
       userApi.updateUser(this.userInfo).then(re => {
-        if (re.code === 1) {
-          _this.$message.success(re.message)
+        if (re.code === 200) {
+          _this.$message.success(re.data)
         } else {
-          _this.$message.error(re.message)
+          _this.$message.error(re.data)
         }
       })
     }

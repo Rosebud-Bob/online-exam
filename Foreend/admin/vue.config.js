@@ -7,19 +7,19 @@ function resolve (dir) {
 
 module.exports = {
   publicPath: './',
-  outputDir: 'admin',
+  outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: true,
   productionSourceMap: false,
   devServer: { // 开发环境主要修改这里
     open: true,
-    host: 'localhost', // 后端接口的域名
-    port: 8002, // 前端启动的端口
+    host: '120.25.236.100', // 后端接口的域名
+    port: 80, // 前端启动的端口
     https: false,
     hotOnly: false,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000', // 后端接口地址，和后端保持一致
+        target: 'http://120.25.236.100:8888', // 后端接口地址，和后端保持一致
         changeOrigin: true
       }
     }

@@ -11,6 +11,9 @@ import './icons' // icon
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 
+import md5 from 'js-md5' //引入md5
+Vue.prototype.$md5 = md5;//添加
+
 Vue.use(Element, {
   size: 'medium' // set element-ui default size
 })

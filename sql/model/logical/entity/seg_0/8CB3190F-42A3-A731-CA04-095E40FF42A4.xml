@@ -4,7 +4,7 @@
 <createdTime>2022-07-11 11:32:06 UTC</createdTime>
 <ownerDesignName>model</ownerDesignName>
 <engineerTo>
-<item key="0ABA1443-047E-8E3E-3738-078DE22A58CE" value="true"/>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -20,7 +20,7 @@
 <createdTime>2022-07-11 11:34:02 UTC</createdTime>
 <ownerDesignName>model</ownerDesignName>
 <engineerTo>
-<item key="0ABA1443-047E-8E3E-3738-078DE22A58CE" value="true"/>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -32,7 +32,7 @@
 <createdTime>2022-07-11 11:34:08 UTC</createdTime>
 <ownerDesignName>model</ownerDesignName>
 <engineerTo>
-<item key="0ABA1443-047E-8E3E-3738-078DE22A58CE" value="true"/>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -45,7 +45,7 @@
 <createdTime>2022-07-11 11:41:37 UTC</createdTime>
 <ownerDesignName>model</ownerDesignName>
 <engineerTo>
-<item key="0ABA1443-047E-8E3E-3738-078DE22A58CE" value="true"/>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -58,7 +58,7 @@
 <createdTime>2022-07-11 11:53:56 UTC</createdTime>
 <ownerDesignName>model</ownerDesignName>
 <engineerTo>
-<item key="0ABA1443-047E-8E3E-3738-078DE22A58CE" value="true"/>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -71,7 +71,7 @@
 <createdTime>2022-07-11 11:34:24 UTC</createdTime>
 <ownerDesignName>model</ownerDesignName>
 <engineerTo>
-<item key="0ABA1443-047E-8E3E-3738-078DE22A58CE" value="true"/>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT040</logicalDatatype>
@@ -83,7 +83,7 @@
 <createdTime>2022-07-11 11:57:53 UTC</createdTime>
 <ownerDesignName>model</ownerDesignName>
 <engineerTo>
-<item key="0ABA1443-047E-8E3E-3738-078DE22A58CE" value="true"/>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -97,7 +97,7 @@
 <createdTime>2022-07-11 11:42:03 UTC</createdTime>
 <ownerDesignName>model</ownerDesignName>
 <engineerTo>
-<item key="0ABA1443-047E-8E3E-3738-078DE22A58CE" value="true"/>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -105,6 +105,20 @@
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>200 CHAR</dataTypeSize>
 <ownDataTypeParameters>200 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id1" id="806978F7-93B4-45F8-640A-7429AF6BF5AC">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:25:54 UTC</createdTime>
+<generatorID>40D80783-519F-1E6C-36B2-F41DE2BAF85A</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
+</engineerTo>
+<referedAttribute>4E494BDB-87EE-4EA8-4BAF-EE191A4E25F0</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0F982420-53D7-06C1-66D8-87437433CDC3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
@@ -114,7 +128,7 @@
 <ownerDesignName>model</ownerDesignName>
 <shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="0ABA1443-047E-8E3E-3738-078DE22A58CE" value="false"/>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

@@ -8,7 +8,7 @@
           </div>
           <div class="card-panel-description">
             <div class="card-panel-text">
-              计算机网络
+              毛概
             </div>
           </div>
         </div>
@@ -20,7 +20,7 @@
           </div>
           <div class="card-panel-description">
             <div class="card-panel-text">
-              JAVA程序
+              军理
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
           </div>
           <div class="card-panel-description">
             <div class="card-panel-text">
-              数据结构
+              马原
             </div>
           </div>
         </div>
@@ -44,32 +44,29 @@
           </div>
           <div class="card-panel-description">
             <div class="card-panel-text">
-              算法设计
+              思修
             </div>
           </div>
         </div>
       </el-col>
     </el-row>
     <el-row class="echarts-line">
-      <div id="echarts-moth-user" style="width: 100%;height:400px;" v-loading="loading"/>
-    </el-row>
-    <el-row class="echarts-line">
-      <div id="echarts-moth-question" style="width: 100%;height:400px;" v-loading="loading"/>
+      <el-calendar v-model="timeValue">
+      </el-calendar>
     </el-row>
   </div>
 </template>
 
 <script>
 import resize from './components/mixins/resize'
-import CountTo from 'vue-count-to'
 import dashboardApi from '@/api/dashboard'
 export default {
   mixins: [resize],
   components: {
-    CountTo
   },
   data () {
     return {
+      timeValue: new Date(),
       examPaperCount: 0,
       questionCount: 0,
       doExamPaperCount: 0,
@@ -80,22 +77,6 @@ export default {
     }
   },
   mounted () {
-    // eslint-disable-next-line no-undef
-    this.echartsUserAction = echarts.init(document.getElementById('echarts-moth-user'), 'macarons')
-    // eslint-disable-next-line no-undef
-    this.echartsQuestion = echarts.init(document.getElementById('echarts-moth-question'), 'macarons')
-    let _this = this
-    this.loading = true
-    dashboardApi.index().then(re => {
-      let response = re.response
-      _this.examPaperCount = response.examPaperCount
-      _this.questionCount = response.questionCount
-      _this.doExamPaperCount = response.doExamPaperCount
-      _this.doQuestionCount = response.doQuestionCount
-      _this.echartsUserAction.setOption(this.option('用户活跃度', '{b}日{c}度', response.mothDayText, response.mothDayUserActionValue))
-      _this.echartsQuestion.setOption(this.option('题目月数量', '{b}日{c}题', response.mothDayText, response.mothDayDoExamQuestionValue))
-      this.loading = false
-    })
   },
   methods: {
     option (title, formatter, label, vaule) {

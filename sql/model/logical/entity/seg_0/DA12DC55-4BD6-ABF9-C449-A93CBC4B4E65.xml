@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="DA12DC55-4BD6-ABF9-C449-A93CBC4B4E65" name="profession">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:24:26 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="0D7BA95F-6DF8-6DB7-2AB5-652F6491D8A7">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:24:32 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>0F982420-53D7-06C1-66D8-87437433CDC3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="name" id="4089EBED-EF33-051D-5118-F4A09395F432">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:24:37 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<domain>33707D8D-B978-DE7A-D66F-CC8B11046A2E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="09B17AA7-0A3E-432A-F6EB-0450C1C4C6CA" name="profession PK">
+<createdBy>陈一鸣</createdBy>
+<createdTime>2022-07-19 02:24:35 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="7DC7B082-ADC0-1011-4AEE-186BEB290AAB" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>0D7BA95F-6DF8-6DB7-2AB5-652F6491D8A7</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

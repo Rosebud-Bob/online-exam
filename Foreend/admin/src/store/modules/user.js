@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import userApi from '@/api/user'
 // initial state
 const state = {
-  userName: Cookies.get('adminUserName'),
+  username: Cookies.get('adminusername'),
   userInfo: Cookies.get('adminUserInfo')
 }
 
@@ -17,16 +17,16 @@ const actions = {
 
 // mutations
 const mutations = {
-  setUserName (state, userName) {
-    state.userName = userName
-    Cookies.set('adminUserName', userName, { expires: 30 })
+  setusername (state, username) {
+    state.username = username
+    Cookies.set('adminusername', username, { expires: 30 })
   },
   setUserInfo: (state, userInfo) => {
     state.userInfo = userInfo
     Cookies.set('adminUserInfo', userInfo, { expires: 30 })
   },
   clearLogin (state) {
-    Cookies.remove('adminUserName')
+    Cookies.remove('adminusername')
     Cookies.remove('adminUserInfo')
   }
 }

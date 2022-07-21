@@ -1,24 +1,21 @@
 <template>
   <div class="lowin  lowin-blue">
-    <div class="lowin-brand">
-      <img src="@/assets/logo2.png" alt="logo" style="margin-top: 12px">
-    </div>
     <div class="lowin-wrapper">
       <div class="lowin-box lowin-login">
         <div class="lowin-box-inner">
-          <el-form ref="loginForm" :model="loginForm" :rules="loginRules">
-            <p>考试系统</p>
+          <el-form ref="loginForm" :model="loginForm" :rules="loginRules" @keyup.enter.native="handleLogin">
             <div class="lowin-group">
               <label>用户名 </label>
-              <el-input ref="userName" v-model="loginForm.userName" class="lowin-input" placeholder="用户名" name="userName" type="text" tabindex="1" auto-complete="on"/>
+              <el-input ref="username" v-model="loginForm.username" class="lowin-input" placeholder="用户名" name="username" type="text" tabindex="1" auto-complete="on"/>
             </div>
             <div class="lowin-group password-group">
-              <label>密码 <a href="#" class="forgot-link">忘记密码?</a></label>
-              <el-input  class="lowin-input" :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType"
-                placeholder="密码" name="password" tabindex="2" auto-complete="on" @keyup.native="checkCapslock" @blur="capsTooltip = false" @keyup.enter.native="handleLogin"/>
+              <el-input  class="lowin-input" :key="passwordType" ref="passwordRaw" v-model="passwordRaw" :type="passwordType"
+                placeholder="密码" name="passwordRaw" tabindex="2" auto-complete="on" @keyup.native="checkCapslock" @blur="capsTooltip = false" @keyup.enter.native="handleLogin"/>
             </div>
 
-            <el-button :loading="loading" type="text" class="lowin-btn login-btn"  @click.native.prevent="handleLogin">登录</el-button>
+            <el-button :loading="loading" type="text" class="lowin-btn login-btn"
+                       @click.native.prevent="handleLogin"
+            >登录</el-button>
 
             <div class="text-foot">
               还没有账号?
@@ -36,6 +33,8 @@
 <script>
 import { mapMutations } from 'vuex'
 import loginApi from '@/api/login'
+
+let md5 = require("md5")
 
 export default {
   name: 'Login',
@@ -56,17 +55,17 @@ export default {
     }
     return {
       loginForm: {
-        userName: '',
-        password: '',
-        remember: false
+        username: '',
+        password: '' // 加密后的密码
       },
       loginRules: {
-        userName: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       passwordType: 'password',
       capsTooltip: false,
       loading: false,
+      passwordRaw: '', // 没加密的密码
       showDialog: false
     }
   },
@@ -74,15 +73,19 @@ export default {
     // window.addEventListener('storage', this.afterQRScan)
   },
   mounted () {
-    if (this.loginForm.userName === '') {
-      this.$refs.userName.focus()
-    } else if (this.loginForm.password === '') {
-      this.$refs.password.focus()
+    if (this.loginForm.username === '') {
+      this.$refs.username.focus()
+    } else if (this.passwordRaw === '') {
+      this.$refs.passwordRaw.focus()
     }
   },
   destroyed () {
     // window.removeEventListener('storage', this.afterQRScan)
   },
+  // 计算属性
+  computed:{
+  },
+
   methods: {
     checkCapslock ({ shiftKey, key } = {}) {
       if (key && key.length === 1) {
@@ -104,17 +107,26 @@ export default {
         this.passwordType = 'password'
       }
       this.$nextTick(() => {
-        this.$refs.password.focus()
+        this.$refs.passwordRaw.focus()
       })
     },
+
     handleLogin () {
+      // md5加密
+      this.loginForm.password=md5(this.passwordRaw)
       let _this = this
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          loginApi.login(this.loginForm).then(function (result) {
-            if (result && result.code === 1) {
-              _this.setUserName(_this.loginForm.userName)
+          // 将json对象转化为json字符串
+          loginApi.login(JSON.stringify(this.loginForm)).then(function (result) {
+            // 登陆成功
+            if (result && result.code === 200) {
+              // token start
+              let token=result.data//从后台返回的token
+              localStorage.setItem('token',token); // 用localStorage缓存token的值
+              // token end
+              _this.setUserName(_this.loginForm.username)
               _this.$router.push({ path: '/' })
             } else {
               _this.loading = false

@@ -5,7 +5,6 @@
     <div  class="hasTagsView main-container">
       <div class="fixed-header">
         <navbar />
-        <tags-view/>
       </div>
       <app-main />
       <back-to-top :visibility-height="100" :back-position="0" transition-name="fade" ref="backTop"/>
@@ -14,17 +13,19 @@
 </template>
 
 <script>
-import { AppMain, Navbar, Sidebar, TagsView } from './components'
+import { AppMain, Navbar, Sidebar } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'
 import BackToTop from '@/components/BackToTop'
+
+
+
 export default {
   name: 'Layout',
   components: {
     AppMain,
     Navbar,
     Sidebar,
-    TagsView,
     BackToTop
   },
   mixins: [ResizeMixin],

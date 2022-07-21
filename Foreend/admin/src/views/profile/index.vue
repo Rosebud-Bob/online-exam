@@ -32,9 +32,9 @@ export default {
   data () {
     return {
       userInfo: {
-        realName: '',
-        phone: '',
-        role: '1',
+        name: '',
+        mobile_number: '',
+        user_type: '1',
         imagePath: null
       }
     }
